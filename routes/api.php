@@ -46,5 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/edit-profile', [UserController::class, 'update']);
 
     Route::post('/add-comment', [CommentController::class, 'store']);
+
+    Route::delete('/delete-comment', [CommentController::class, 'delete']);
 });
 

@@ -27,16 +27,35 @@ class CommentController extends Controller
 
     public function listComments()
     {
-        $comments = Comment::with('user') 
+        $comments = Comment::with('user')
             ->get()
             ->map(function ($comment) {
                 return [
                     'message' => $comment->message,
                     'created_at' => $comment->created_at,
                     'updated_at' => $comment->updated_at,
-                    'author' => $comment->user->name ?? 'Anônimo', 
+                    'author' => $comment->user->name ?? 'Anônimo',
                 ];
             });
         return response()->json([$comments], 201);
+    }
+
+    public function delete(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'comment_id' => 'required|int',
+        ]);
+        if ($request->has('comment_id')) {
+            $comment = Comment::find($request->comment_id);
+            if ($comment->user_id == $user->id) {
+                $comment->delete();
+                return response()->json(['message'=> 'Seu comentário foi removido!', 'comment'=> $comment], 201);
+            } else {
+                return response()->json(['message'=> 'Você não possui autorização necessária para esta requisição'], 401);
+            }
+        } else {
+            return response()->json(['message'=> 'Você precisa informar um ID para esta requisição'], 201);
+        }
     }
 }
