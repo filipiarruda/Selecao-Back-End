@@ -1,3 +1,26 @@
+# Critérios atendidos
+
+###Requisitos
+- Permite cadastro e edição dos dados do usuário, e ele precisa estar logado para isso
+- Retorno de todos os comentários sem autenticação nesta rota, montei o relacionamento na model e coloquei um filtro pra não expor dados sensíveis do usuário, somente o nome é exibido, e como author, para não expor diretamente na api em rota não autenticada campo com mesmo nome ao que tem no banco de dados, por segurança.
+- O sistema retorna o autor e dia e horário da postagem na listagem de todos posts
+
+
+###Desejáveis
+- Criptografia da senha do usuário, utilizando o Hash do Laravel
+- Permite ao usuário excluir comentários, apenas comentários que ele é o dono
+
+
+###Plus
+
+- Collection do Postman com exemplo das requisições para facilitar os testes pela equipe da BetaLabs
+
+
+
+
+
+
+
 # Selecao-Back-End
 Você deverá forkar este repositório para fazer o seu exercício. Para entregar envie o link do seu repositório por e-mail.
 
