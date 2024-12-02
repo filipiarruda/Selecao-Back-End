@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
-
+use App\Http\Controllers\Api\CommentController;
+use App\Models\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +33,18 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 
 
+//List comments Unauthenticated Route
+Route::get('list-comments', [CommentController::class, 'listComments']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/protected', function () {
         return response()->json(['message' => 'This route is protected.']);
     });
 
     Route::get('/profile', [UserController::class, 'profile']);
+
+    Route::put('/edit-profile', [UserController::class, 'update']);
+
+    Route::post('/add-comment', [CommentController::class, 'store']);
 });
 
