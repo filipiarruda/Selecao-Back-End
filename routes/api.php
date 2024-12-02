@@ -36,5 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/protected', function () {
         return response()->json(['message' => 'This route is protected.']);
     });
+
+    Route::get('/profile', [UserController::class, 'profile']);
 });
 
